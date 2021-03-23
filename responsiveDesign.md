@@ -1,4 +1,4 @@
-#Responsive Design
+# Responsive Design
 
 “Responsive design” refers to the idea that your website should display equally well in everything from widescreen monitors to mobile phones. It’s an approach to web design and development that eliminates the distinction between the mobile-friendly version of your website and its desktop counterpart. With responsive design, they’re the same thing.
 
@@ -10,7 +10,7 @@ Media queries let us present the same HTML content as distinct CSS layouts.
 So, instead of maintaining one website for smartphones, and an entirely unrelated site for laptops/desktops,
 we can use the same HTML markup for both of them.
 
-#SetUp
+# SetUp
 Our target is to design this:
 ![mtd](images/mtd2.png)
 
@@ -42,7 +42,7 @@ To disable it, we have added the following element to the 'head' of our document
       content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
 
 ```
-#CSS Media Queries
+# CSS Media Queries
 We’ll start small by simply updating the background color on the <body> element based on the device width. This is a good way to make sure our media queries are actually working before getting into complicated layouts.
 ![mtd](images/mtd.png)
 
@@ -99,14 +99,14 @@ for how a desktop layout collapses into a mobile layout (we’re using “layout
 
 In our example web page, the mobile and tablet versions are fluid(we are giving it a width of 100%), and the desktop version is fixed-width(we are giving it a width of 960px).
 
-#Choosing Breakpoints
+# Choosing Breakpoints
 Most of those responsive design patterns have similar behavior, using fluid layouts for mobile/tablet devices and fixed-width layouts for wider screens. There’s a reason for this.
 
 Fluid layouts let us target a range of screen widths instead of specific mobile devices. This is very important for web designers. When they set out to create a mobile layout, they aren’t trying to make something that looks good on an iPhone 6s, Galaxy S7, or iPad mini—they’re designing a fluid layout that looks good anywhere between 300 pixels and 500 pixels (or whatever).
 
 In other words, the exact pixel values for the min-width and max-width parameters in a media query (collectively known as the “breakpoints” for a responsive website) don’t actually matter. Our website doesn’t care about the specific device the user is on. All it needs to know is that it should display a layout that looks pretty at 400 pixels wide (or whatever).
 
-#Mobile First Development
+# Mobile First Development
 Let’s dive right into implementing the above screenshots. It’s always a good idea to start with the mobile layout and work your way up to the desktop version. Desktop layouts are typically more complex than their mobile counterparts, and this “mobile-first” approach maximizes the amount of CSS that you can reuse across your layouts.
 
 First, we need to fill in responsive.html’s 'body' element with some empty boxes. Each box has an image in it so we can tell them apart a little bit easier.
@@ -187,7 +187,7 @@ If you make the browser window narrow, you'll see that this gives us our entire 
 
 By keeping these base styles outside of the media queries, we’re able to override and add on to them as we implement our specific layouts. This is really convenient when, for instance, your designer wants to tweak the color scheme for the entire website. Instead of tracking down redundant background-color declarations in several @media rules, you only have to update it here. That change automatically applies to the mobile, tablet, and desktop layouts.
 
-#Tablet Layout
+# Tablet Layout
 On to the tablet layout. The only difference between the mobile and tablet mockups is that the Sign Up and Feature sections form a 2×2 grid instead of a single column.
 
 Flexbox makes this real easy. Simply adjust the widths of the flex items to be half the screen and flex-wrap will take care of the rest. Of course, we only want this behavior to apply to tablet-sized screens, so it needs to go into an @media rule. Replace the existing /* Tablet Styles */ media query with the following:
@@ -206,7 +206,7 @@ Flexbox makes this real easy. Simply adjust the widths of the flex items to be h
 
 Again, it doesn’t matter what the exact width of the screen is: this layout will fluidly respond to any width in the media query’s range. Our mobile layout is also fluid, so we now have a website that looks beautiful (if a bit empty) in every device smaller than 960px wide.
 
-#Desktop Layout
+# Desktop Layout
 And that’s where our desktop layout comes in. We don’t want our web page to expand endlessly, so we’re going to give it a fixed width and center it with auto-margins. As with tablet styles, this needs to go into a media query. Replace the existing /* Desktop Styles */ media query with the following:
 
 ```CSS
@@ -253,7 +253,7 @@ This was just one example of laying out a responsive site. You can use these exa
 
 
 
-#SUMMARY
+# SUMMARY
 To boil it down, we’re really only concerned with three things to create a responsive website:
 * The responsive design (the mockups for each layout)
 * CSS rules for implementing each of those layouts
