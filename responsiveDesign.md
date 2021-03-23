@@ -12,6 +12,7 @@ we can use the same HTML markup for both of them.
 
 # SetUp
 Our target is to design this:
+
 ![mtd](images/mtd2.png)
 
 Create a new project called responsive-design and a new file called responsive.html.
