@@ -5,17 +5,21 @@ Responsive design is accomplished through CSS “media queries”. Think of medi
 
 ![intro](images/intro.png)
 
-Media queries let us present the same HTML content as distinct CSS layouts. So, instead of maintaining one website for smartphones and an entirely unrelated site for laptops/desktops, we can use the same HTML markup (and web server) for both of them. This means that whenever we add a new article or edit a typo in our HTML, those changes are automatically reflected in both mobile and widescreen layouts. This is the reason why we separate content from presentation.
-
-In this chapter, we’ll learn how media queries are really just a thin wrapper around the plain old CSS that we’ve been working with up ’til this point. As we’ll soon discover, it’s actually pretty easy to implement a responsive layout. (Responsive Images, on the other hand, are an entirely different story).
+Media queries let us present the same HTML content as distinct CSS layouts.
+So, instead of maintaining one website for smartphones, and an entirely unrelated site for laptops/desktops,
+we can use the same HTML markup for both of them.
 
 #SetUp
+Our target is to design this:
+![mtd](images/mtd2.png)
+
 Create a new project called responsive-design and a new file called responsive.html.
 ```HTML
 <!DOCTYPE html>
 <html lang='en'>
   <head>
     <meta charset='UTF-8'/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Design</title>
     <link rel='stylesheet' href='styles.css'/>
   </head>
@@ -26,7 +30,17 @@ Create a new project called responsive-design and a new file called responsive.h
 ```
 
 Create an images folder and download the images from here: [images](images)
+#Disabling Viewport Zooming
+Before responsive design was a thing, mobile devices only had a desktop layout to work with. To cope with this, they zoomed out to fit the entire desktop layout into the width of the screen, letting the user interact with it by zooming in when necessary.
 
+This default behavior will prevent mobile devices from using our mobile layout, which is obviously very terrible.
+To disable it, we have added the following element to the 'head' of our document. Just like 'meta charset='UTF-8'', this is a critical element that should be on every single web page you create:
+
+```HTML
+<meta name='viewport'
+      content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+
+```
 #CSS Media Queries
 We’ll start small by simply updating the background color on the <body> element based on the device width. This is a good way to make sure our media queries are actually working before getting into complicated layouts.
 ![mtd](images/mtd.png)
@@ -67,10 +81,10 @@ Media queries always begin with the @media “at-rule” followed by some kind o
 
 The only screen “media type” means that the contained styles should only be applied to devices with screens (opposed to printed documents, like when you hit Cmd+P in a browser). The min-width and max-width parts are called “media features”, and they specify the device dimensions you’re targeting.
 
-There are a lot of [other](https://developer.mozilla.org/en-US/docs/Web/CSS/@media) conditions you can check for, including whether the device is in portrait or landscape mode, the resolution of its screen, and whether it has a mouse or not.
+There are a lot of [other](https://developer.mozilla.org/en-US/docs/Web/CSS/@media) conditions 
+you can check for, including whether the device is in portrait or landscape mode,
+the resolution of its screen, and whether it has a mouse or not.
 
-The example web page for this chapter is going to look something like this:
-![mtd](images/mtd2.png)
 
 In the real world, it’s up to your web designer to supply you with these kinds of mockups. Your job as a developer is to implement the individual layouts using media queries to separate out the various CSS rules that apply to each one.
 
@@ -78,11 +92,11 @@ There’s a few [well defined patterns](https://developers.google.com/web/fundam
 for how a desktop layout collapses into a mobile layout (we’re using “layout shifter”).
 
 * A “fluid” layout is one that stretches and shrinks to fill the width of the screen, just like the flexible boxes.
-* A “fixed-width” layout is the opposite: it has the same width regardless of the screen dimensions (we created one of these in the CSS Selectors chapter).
+* A “fixed-width” layout is the opposite: it has the same width regardless of the screen dimensions .
 
 ![flfwl](images/flfwl.png)
 
-In our example web page, the mobile and tablet versions are fluid, and the desktop version is fixed-width.
+In our example web page, the mobile and tablet versions are fluid(we are giving it a width of 100%), and the desktop version is fixed-width(we are giving it a width of 960px).
 
 #Choosing Breakpoints
 Most of those responsive design patterns have similar behavior, using fluid layouts for mobile/tablet devices and fixed-width layouts for wider screens. There’s a reason for this.
@@ -94,11 +108,13 @@ In other words, the exact pixel values for the min-width and max-width parameter
 #Mobile First Development
 Let’s dive right into implementing the above screenshots. It’s always a good idea to start with the mobile layout and work your way up to the desktop version. Desktop layouts are typically more complex than their mobile counterparts, and this “mobile-first” approach maximizes the amount of CSS that you can reuse across your layouts.
 
-First, we need to fill in responsive.html’s <body> element with some empty boxes. Each box has an image in it so we can tell them apart a little bit easier.
+First, we need to fill in responsive.html’s 'body' element with some empty boxes. Each box has an image in it so we can tell them apart a little bit easier.
 
 ```HTML
 <div class='page'>
-  <div class='section menu'></div>
+  <div class='section menu'>
+      
+  </div>
   <div class='section header'>
     <img src='images/header.svg'/>
   </div>
@@ -209,6 +225,9 @@ And that’s where our desktop layout comes in. We don’t want our web page to 
   }
 }
 ```
+The output for your html file should look like this:
+
+![project](images/1.png)
 This gives us the correct widths for everything, and we have more real estate to play with, so we made the header a little taller, too. Almost there, but our desktop layout calls for some reordering: the Sign Up and Content boxes should appear underneath all the Feature sections.
 
 This is where flexbox really shines. Trying to create this combination of mobile and desktop layouts would be very difficult with floats. With flexbox’s order property, it’s just a few lines of CSS. Append these rules to the desktop media query:
@@ -222,30 +241,27 @@ This is where flexbox really shines. Trying to create this combination of mobile
   order: 2;
 }
 ```
+The output for your html file should look like this:
 
-Ta da! A responsive website! Not bad for less than a hundred lines of CSS. More importantly, we didn’t have to alter a single line of HTML to accommodate our mobile, tablet, and desktop layouts.
+![project](images/2.png)
+
+ A responsive website!
+More importantly, we didn’t have to alter a single line of HTML to accommodate our mobile, tablet, and desktop layouts.
 
 This was just one example of laying out a responsive site. You can use these exact same techniques to implement all sorts of other designs. Start with the base styles that apply to your entire site, then tweak them for various device widths by selectively applying CSS rules with @media. You could even add another media query to, say, create a dedicated layout for ultra-widescreen monitors.
-#Disabling Viewport Zooming
-We’ve got one final task for making a responsive web page. Before responsive design was a thing, mobile devices only had a desktop layout to work with. To cope with this, they zoomed out to fit the entire desktop layout into the width of the screen, letting the user interact with it by zooming in when necessary.
 
-This default behavior will prevent mobile devices from using our mobile layout, which is obviously very terrible. To disable it, add the following element to the <head> of our document. Just like <meta charset='UTF-8'/>, this is a critical element that should be on every single web page you create:
 
-```HTML
-<meta name='viewport'
-      content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
-
-```
 
 #SUMMARY
-Believe it or not, that’s actually all you need to know to create responsive websites. If we boil it down, we’re really only concerned with three things:
+To boil it down, we’re really only concerned with three things to create a responsive website:
 * The responsive design (the mockups for each layout)
 * CSS rules for implementing each of those layouts
 * Media queries for conditionally applying those CSS rules
 
-We started this chapter by learning about the difference between fluid layouts and fixed-width layouts. Then, we went on to create a mobile-first stylesheet that used media queries to build tablet and desktop layouts on top of a shared set of base styles. Finally, we disabled the default viewport zoom behavior of mobile browsers.
 
-So, that was the easy part of responsive design. In the next chapter, we’ll discover the hard part: images. Presenting different CSS to specific devices isn’t too bad, but optimizing images for those devices requires a bit more planning.
+
+
+
 
 
 
