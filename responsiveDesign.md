@@ -32,7 +32,8 @@ Create a new project called responsive-design and a new file called responsive.h
 ```
 
 Create an images folder and download the images from here: [images](images)
-#Disabling Viewport Zooming
+
+# Disabling Viewport Zooming 
 Before responsive design was a thing, mobile devices only had a desktop layout to work with. To cope with this, they zoomed out to fit the entire desktop layout into the width of the screen, letting the user interact with it by zooming in when necessary.
 
 This default behavior will prevent mobile devices from using our mobile layout, which is obviously very terrible.
